@@ -1,10 +1,4 @@
 # Data Preparation
-
-
-```python
-
-```
-
 ## 1. Import Pustaka yang Dibutuhkan
 
 
