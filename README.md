@@ -556,7 +556,8 @@ plt.show()
     
 ![png](output_41_0.png)
     
-
+Perlu dicermati bahwa outlier yang muncul pada visualisasi di atas apakah merupakan hasil salah pembacaan alat ataukah kondisi ekstrem yang memang benar adanya. Karena konteks kali ini mendeteksi diabetes dengan faktor risiko salah satunya 
+hipertensi, maka nilai sistolik yang melebihi 200 mmHg dan nilai diastolik yang melebihi 120  mmHg bisa diterima sebagai kondisi hipertensi yang perlu penanganan medis. Begitu juga dengan fitur BMI yang mana termasuk nilai yang valid jika BMI yang melebihi nilai 60 kg/m2 (Obesitas). Lalu outlier pada fitur HbA1c yang meskipun tinggi nilai di atas 10% dapat diterima, justru dalam konteks penelitian ini penting karena tingginya tes HbA1c merupakan indikasi utama diabetes, dan begitu pun dengan kadar kolesterol yang melebihi 400 mg/dL. Oleh karena itu outlier yang nampak pada fitur-fitur tersebut tidak perlu dibersihkan.
 
 ### 3. Fitur Katagorikal
 
@@ -704,37 +705,10 @@ plt.show()
 
     
 ![png](output_54_0.png)
-    
 
+### 2. Rekayasa Fitur
 
-### 2. Drop Outlier
-
-
-```python
-fig, ax = plt.subplots(4, 3, figsize=(14, 10))
-ax = ax.flatten()
-plt.suptitle("Deteksi Outlier pada Fitur Numerik dengan Boxplot", fontsize=14, fontweight='bold')
-
-for col, index in zip(num_cols, range(len(num_cols))):
-    sns.boxplot(ax=ax[num_cols.index(col)], x=col, data=df)
-    ax[num_cols.index(col)].set_xlabel(f"'{col}'", fontsize=10, fontweight='bold')
-    ax[num_cols.index(col)].set_ylabel("jumlah", fontsize=10, fontweight='bold')
-
-ax[len(num_cols)].set_axis_off()
-ax[len(num_cols)+1].set_axis_off()
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](output_56_0.png)
-    
-
-
-### 3. Rekayasa Fitur
-
-#### 3.1 Memperbaiki Nilai pada Fitur Usia
+#### 2.1 Memperbaiki Nilai pada Fitur Usia
 
 - Terdapat kolom unik yaitu kolom `usia` yang memiliki tipe data campuran (numerik untuk umur 0 sampai 79, dan katagori untuk nilai 80 ke atas) sehingga perlu perlakuan khusus dengan mengubah kolom `usia` menjadi katagori.
 
@@ -777,7 +751,7 @@ plt.show()
     
 
 
-#### 3.2 Membuat Fitur Tekanan Darah
+#### 2.2 Membuat Fitur Tekanan Darah
 
 **Mean Arterial Pressure**</br>
 MAP dapat dihitung menggunakan rumus berikut:</br>
@@ -845,7 +819,7 @@ plt.show()
     
 
 
-#### 3.3 Memperbaiki Urutan Katagori Fitur Alkohol
+#### 2.3 Memperbaiki Urutan Katagori Fitur Alkohol
 
 
 ```python
@@ -856,9 +830,9 @@ alkohol_mapping = {
 df['alkohol'] = df['alkohol'].map(alkohol_mapping)
 ```
 
-### 4. Encoding
+### 3. Encoding
 
-#### 4.1 Biner
+#### 3.1 Biner
 
 
 ```python
@@ -918,7 +892,7 @@ plt.show()
     
 
 
-#### 4.2 Nominal
+#### 3.2 Nominal
 
 
 ```python
@@ -998,12 +972,9 @@ all_cat_cols = [
  'merokok100']
 ```
 
-
 ```python
 df[all_cat_cols].tail()
 ```
-
-
 
 
 <div>
@@ -1136,10 +1107,7 @@ df[all_cat_cols].tail()
 </table>
 </div>
 
-
-
-### 5. Splitting
-
+### 4. Splitting
 
 ```python
 X = df.drop(columns='diabetes', axis=1)
@@ -1151,16 +1119,13 @@ y = df['diabetes']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3, random_state=42, stratify=y)
 ```
 
-
 ```python
 print(f"X_train: {X_train.shape}, X_test: {X_test.shape}, y_train: {y_train.shape}, y_test: {y_test.shape}")
 ```
 
     X_train: (2856, 20), X_test: (1224, 20), y_train: (2856,), y_test: (1224,)
     
-
-### 6. Normalization
-
+### 5. Normalization
 
 ```python
 # Normalization
@@ -1181,8 +1146,6 @@ X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns, index=X_test.index)
 ```python
 X_train.iloc[:20, :8]
 ```
-
-
 
 
 <div>
@@ -1439,13 +1402,9 @@ X_train.iloc[:20, :8]
 </div>
 
 
-
-
 ```python
 X_train.iloc[:20, 8:]
 ```
-
-
 
 
 <div>
@@ -1952,7 +1911,7 @@ X_train.iloc[:-20, :8]
 
 
 
-### 7. Resampling
+### 6. Resampling
 
 Resampling dengan SMOTE-ENN
 
