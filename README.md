@@ -98,7 +98,7 @@ final_df.shape
 ```python
 final_df.head()
 ```
-![final_df.head()](notebook\model_training_files\1_final_df.head().png)
+![final_df.head()](./notebook/model_training_files/1_final_df.head().png)
 
 
 ## 4. Saring Fitur yang Akan Digunakan
@@ -246,7 +246,7 @@ plt.show()
 ```
 
 
-![png](notebook\model_training_files/model_training_15_0.png)
+![png](./notebook/model_training_files/model_training_15_0.png)
   
 
 
@@ -460,7 +460,7 @@ df = df.rename(columns={
 ```python
 df.head()
 ```
-![df.head()](notebook\model_training_files\1_df.head().png)
+![df.head()](./notebook/model_training_files/1_df.head().png)
 
 
 # Exploratory Data Analysis
@@ -1748,7 +1748,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_162_0.png)
+![png](./notebook/model_training_files/model_training_162_0.png)
     
 
 
@@ -2148,7 +2148,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_194_0.png)
+![png](./notebook/model_training_files/model_training_194_0.png)
     
 
 
@@ -2341,7 +2341,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_209_0.png)
+![png](./notebook/model_training_files/model_training_209_0.png)
     
 
 ## 6. Feature Importance
