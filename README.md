@@ -724,7 +724,7 @@ plt.show()
     
 
 
-## 2. Drop Outlier
+## 2. Handling Outlier
 
 
 ```python
@@ -748,6 +748,7 @@ plt.show()
 ![png](notebook/model_training_files/model_training_54_0.png)
     
 
+Outlier akan tetap dibiarkan untuk representasi data dengan nilai tinggi yang dapat meningkatkan risiko terjadinya diabetes.
 
 ## 3. Rekayasa Fitur
 
