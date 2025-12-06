@@ -98,7 +98,7 @@ final_df.shape
 ```python
 final_df.head()
 ```
-![final_df.head()](./model_training_files/1_final_df.head().png)
+![final_df.head()](notebook\model_training_files\1_final_df.head().png)
 
 
 ## 4. Saring Fitur yang Akan Digunakan
@@ -246,7 +246,7 @@ plt.show()
 ```
 
 
-![png](model_training_files/model_training_15_0.png)
+![png](notebook\model_training_files/model_training_15_0.png)
   
 
 
@@ -460,7 +460,7 @@ df = df.rename(columns={
 ```python
 df.head()
 ```
-![df.head()](./model_training_files/1_df.head().png)
+![df.head()](notebook\model_training_files\1_df.head().png)
 
 
 # Exploratory Data Analysis
@@ -482,8 +482,6 @@ len(num_cols)
 ```
 
 
-
-
     10
 
 
@@ -497,8 +495,6 @@ cat_cols = ['gender', 'ras', 'alkohol','sedih-depresi-putus_asa','gangguan_tidur
 ```python
 len(cat_cols)
 ```
-
-
 
 
     11
@@ -526,7 +522,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_36_0.png)
+![png](notebook/model_training_files/model_training_36_0.png)
     
 
 
@@ -552,7 +548,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_38_0.png)
+![png](notebook/model_training_files/model_training_38_0.png)
     
 
 
@@ -575,7 +571,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_39_0.png)
+![png](notebook/model_training_files/model_training_39_0.png)
     
 
 
@@ -603,7 +599,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_41_0.png)
+![png](notebook/model_training_files/model_training_41_0.png)
     
 
 
@@ -620,7 +616,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_43_0.png)
+![png](notebook/model_training_files/model_training_43_0.png)
     
 
 
@@ -642,7 +638,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_45_0.png)
+![png](notebook/model_training_files/model_training_45_0.png)
     
 
 
@@ -724,7 +720,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_52_0.png)
+![png](notebook/model_training_files/model_training_52_0.png)
     
 
 
@@ -749,7 +745,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_54_0.png)
+![png](notebook/model_training_files/model_training_54_0.png)
     
 
 
@@ -771,7 +767,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_58_0.png)
+![png](notebook/model_training_files/model_training_58_0.png)
     
 
 
@@ -794,7 +790,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_60_0.png)
+![png](notebook/model_training_files/model_training_60_0.png)
     
 
 
@@ -840,7 +836,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_67_0.png)
+![png](notebook/model_training_files/model_training_67_0.png)
     
 
 
@@ -893,7 +889,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_73_0.png)
+![png](notebook/model_training_files/model_training_73_0.png)
     
 
 
@@ -912,7 +908,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_75_0.png)
+![png](notebook/model_training_files/model_training_75_0.png)
     
 
 
@@ -992,7 +988,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_88_0.png)
+![png](notebook/model_training_files/model_training_88_0.png)
     
 
 
@@ -1026,7 +1022,7 @@ plt.pie(x=y_train.value_counts(), labels=['Negatif', 'Positif'], autopct='%1.2f%
 plt.show()
 ```
 
-![png](model_training_files/model_training_90_0.png)    
+![png](notebook/model_training_files/model_training_90_0.png)    
 
 
 # Modeling
@@ -1152,7 +1148,7 @@ plt.show()
 ```
 
     
-![png](model_training_files/model_training_106_0.png)
+![png](notebook/model_training_files/model_training_106_0.png)
     
 
 ## 2. XGBoost
@@ -1278,7 +1274,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_117_0.png)
+![png](notebook/model_training_files/model_training_117_0.png)
     
 
 
@@ -1416,7 +1412,7 @@ plt.show()
 ```
 
     
-![png](model_training_files/model_training_129_0.png)
+![png](notebook/model_training_files/model_training_129_0.png)
     
 
 ## 4. Random Forest
@@ -1555,7 +1551,7 @@ plt.legend(loc='lower right')
 plt.show()
 ```
 
-![png](model_training_files/model_training_142_0.png)
+![png](notebook/model_training_files/model_training_142_0.png)
     
 
 
@@ -1733,7 +1729,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_161_0.png)
+![png](notebook/model_training_files/model_training_161_0.png)
     
 
 
@@ -1925,7 +1921,7 @@ plt.show()
 ```
 
     
-![png](model_training_files/model_training_178_0.png)
+![png](notebook/model_training_files/model_training_178_0.png)
     
 
 
@@ -1945,7 +1941,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_179_0.png)
+![png](notebook/model_training_files/model_training_179_0.png)
     
 
 
@@ -2133,7 +2129,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_193_0.png)
+![png](notebook/model_training_files/model_training_193_0.png)
     
 
 
@@ -2326,7 +2322,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_208_0.png)
+![png](notebook/model_training_files/model_training_208_0.png)
     
 
 
@@ -2363,7 +2359,7 @@ from eli5.sklearn import PermutationImportance
 perm_clf_knn = PermutationImportance(clf_knn, random_state=42).fit(X_test, y_test)
 eli5.show_weights(perm_clf_knn, feature_names=X_test.columns.tolist())
 ```
-![ELI5 KNN](./model_training_files/6-1_eli5.show_weights()_knn.png)
+![ELI5 KNN](notebook/model_training_files/6-1_eli5.show_weights()_knn.png)
 
 
 ```python
@@ -2384,7 +2380,7 @@ plt.title('Feature Importance (Random Forest - ELI5 Permutation)')
 plt.show()
 ```
     
-![png](model_training_files/model_training_216_0.png)
+![png](notebook/model_training_files/model_training_216_0.png)
     
 
 
@@ -2396,7 +2392,7 @@ plt.show()
 perm_clf_xgb = PermutationImportance(clf_xgb, random_state=42).fit(X_test, y_test)
 eli5.show_weights(perm_clf_xgb, feature_names=X_test.columns.tolist())
 ```
-![ELI5 XGB](./model_training_files/6-2_eli5.show_weights()_xgb.png)
+![ELI5 XGB](notebook/model_training_files/6-2_eli5.show_weights()_xgb.png)
 
 
 ```python
@@ -2415,7 +2411,7 @@ plt.show()
 
 
     
-![png](model_training_files/model_training_219_0.png)
+![png](notebook/model_training_files/model_training_219_0.png)
     
 
 
@@ -2427,7 +2423,7 @@ plt.show()
 perm_clf_svm = PermutationImportance(clf_svm, random_state=42).fit(X_test, y_test)
 eli5.show_weights(perm_clf_svm, feature_names=X_test.columns.tolist())
 ```
-![ELI5 SVM](./model_training_files/6-3_eli5.show_weights()_svm.png)
+![ELI5 SVM](notebook/model_training_files/6-3_eli5.show_weights()_svm.png)
 
 
 ```python
@@ -2445,7 +2441,7 @@ plt.show()
 ```
 
     
-![png](model_training_files/model_training_222_0.png)
+![png](notebook/model_training_files/model_training_222_0.png)
     
 
 
@@ -2457,7 +2453,7 @@ plt.show()
 perm_clf_rf = PermutationImportance(clf_rf, random_state=42).fit(X_test, y_test)
 eli5.show_weights(perm_clf_rf, feature_names=X_test.columns.tolist())
 ```
-![ELI5 RF](./model_training_files/6-4_eli5.show_weights()_rf.png)
+![ELI5 RF](notebook/model_training_files/6-4_eli5.show_weights()_rf.png)
 
 
 ```python
@@ -2474,7 +2470,7 @@ plt.title('Feature Importance (Random Forest - ELI5 Permutation)')
 plt.show()
 ```
 
-![png](model_training_files/model_training_225_0.png)
+![png](notebook/model_training_files/model_training_225_0.png)
     
 
 ## 7. Export Model
