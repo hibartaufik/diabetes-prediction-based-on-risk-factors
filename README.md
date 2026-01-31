@@ -81,11 +81,7 @@ final_df = reduce(lambda df1, df2: pd.merge(df1, df2, on='SEQN', how='outer'), d
 ```python
 final_df.shape
 ```
-
-
     (11933, 137)
-
-
 ```python
 final_df.head()
 ```
@@ -230,7 +226,6 @@ plt.show()
 # lihat jumlah Null tiap fitur
 df.isnull().sum()
 ```
-
     SEQN           0
     RIAGENDR       0
     RIDAGEYR       0
@@ -255,18 +250,14 @@ df.isnull().sum()
     MCQ220      4126
     SMQ020      3798
     dtype: int64
-
 ```python
 # drop nilai null dengan fungsi dropna()
 df = df.dropna(ignore_index=True)
 ```
-
-
 ```python
 # dimensi dataset setelah Null dihilangkan
 df.shape
 ```
-
     (4268, 23)
 
 ## 6. Drop Fitur Identifikasi (SEQN)
@@ -591,8 +582,6 @@ for col, values in columns_to_filter.items():
         df = df.loc[~df[col].isin(values)].reset_index(drop=True)
         df[col] = df[col].cat.remove_unused_categories()
 ```
-
-
 ```python
 print(f"Dimensi dataset setelah di drop{df.shape}")
 ```
@@ -888,7 +877,6 @@ print(f"F1-Score: {f1_knn:.4f}")
 print("Classification Report KNN\n")
 print(classification_report(y_test, model_knn_pred))
 ```
-
     Classification Report KNN
     
                   precision    recall  f1-score   support
@@ -900,7 +888,6 @@ print(classification_report(y_test, model_knn_pred))
        macro avg       0.60      0.69      0.59      1224
     weighted avg       0.84      0.70      0.75      1224
     
-
 ```python
 from sklearn.metrics import confusion_matrix
 tn_knn, fp_knn, fn_knn, tp_knn = confusion_matrix(y_test, model_knn_pred).ravel()
@@ -915,23 +902,19 @@ print(f"True Negative (TN): {tn_knn}")
 print(f"False Positive (FP): {fp_knn}")
 print(f"Spesifisitas: {specificity_knn:.4f}")
 ```
-
     True Negative (TN): 751
     False Positive (FP): 310
     Spesifisitas: 0.7078
     
-
 ```python
 print(f"True Positive (TN): {tp_knn}")
 print(f"False Negative (FP): {fn_knn}")
 print(f"Sensitivitas: {sensitiviy_knn:.4f}")
 ```
-
     True Positive (TN): 110
     False Negative (FP): 53
     Sensitivitas: 0.6748
     
-
 ```python
 from sklearn.metrics import roc_auc_score, roc_curve
 y_pred_proba_knn = model_knn.predict_proba(X_test)[:, 1]  # Probabilitas kelas positif
@@ -1178,11 +1161,9 @@ model_rf = RandomForestClassifier(random_state=42)
 model_rf.fit(X_train, y_train)
 ```
 
-
 ```python
 model_rf_pred = model_rf.predict(X_test)
 ```
-
 
 ```python
 print("Akurasi RF: ", accuracy_score(y_test, model_rf_pred))
