@@ -8,8 +8,8 @@
 7. Matriks Evaluasi yang digunakan adalah Accuracy, Precision, Recall, F1-Score, Specificity, ROC-AUC. Untuk feature importance menggunakan teknik permutation importance dengan bantuan pustaka ELI5 agar lebih mudah dipahami.
 8. Agar lebih memahami proses pengembangan model pembelajaran mesin dengan format ilmiah yang lebih terstruktur, bisa mengakses versi skripsinya [disini](https://repository.upi.edu/137929/). Di dalamnya terdapat justifikasi klinis pemilihan faktor-faktor risiko yang didukung dengan artikel-artikel ilmiah yang relevan.
 
-# Data Preparation
-## 1. Import Pustaka yang Dibutuhkan
+# 1. Data Preparation
+## 1.1 Import Pustaka yang Dibutuhkan
 ```python
 # EDA & Visualization
 import pandas as pd
@@ -51,7 +51,7 @@ from eli5.sklearn import PermutationImportance
 # Export model
 import pickle
 ```
-## 2. Import Dataset
+## 1.2 Import Dataset
 ```python
 # Demographics Data
 demo_DE = pd.read_csv('./data/Demographics Data/DEMO_L.csv', na_values=' ')
@@ -69,7 +69,7 @@ depress_Q = pd.read_csv('./data/Questionnaire Data/DPQ_L.csv', na_values=' ')
 medic_Q= pd.read_csv('./data/Questionnaire Data/MCQ_L.csv', na_values=' ')
 smoke_Q = pd.read_csv('./data/Questionnaire Data/SMQ_L.csv', na_values=' ')
 ```
-## 3. Gabung Dataset
+## 1.3 Gabung Dataset
 ```python
 df_list =[
     demo_DE, bp_E, body_E, glyco_L, tchol_L, alcohol_Q, 
@@ -87,7 +87,7 @@ final_df.head()
 ```
 ![final_df.head()](./notebook/model_training_files/1_final_df.head().png)
 
-## 4. Saring Fitur yang Akan Digunakan
+## 1.4 Saring Fitur yang Akan Digunakan
 Terdapat 5 kelompok data yaitu Demographics Data, Examination Data, Laboratory Data, Questionnaire Data. Setiap kelompok data memiliki berbagai jenis dataset yang berhubungan berdasarkan kelompok terkait, kecuali Demographics Data yang hanya memiliki satu dataset. Dataset-dataset yang berada dalam kelompok tersebut akan dipilih, di dalamnya akan diambil beberapa kolom untuk membentuk dataset baru. Sumber data bisa diakses [disini](https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?Cycle=2021-2023). Untuk filter/pemilihan kolom dalam setiap datasetnya dapat dilihat sebagai berikut.
 
 Kategori Faktor Risiko:
@@ -95,7 +95,6 @@ Kategori Faktor Risiko:
     - Umur
     - Jenis Kelamin
     - Ras
-
     </br>
 - Pemeriksaan Medis:
     - Systolic - 1st oscillometric reading
@@ -107,21 +106,18 @@ Kategori Faktor Risiko:
     - BMI
     - HbA1c
     - Kadar Kolesterol
-
     </br>
 - Kesehatan Mental:
     - Sedih, Depersi, atau Putus Asa
     - Gangguan Tidur
     - Kelelahan
     - Gannguan Makan
-
     </br>
 - Riwayat Medis:
     - Kolesterol Tinggi
     - Tiroid
     - Liver
     - Kanker
-
     </br>
 - Gaya Hidup:
     - Konsumsi Alkohol
@@ -146,13 +142,12 @@ df = final_df[[
     'SMQ020'
 ]]
 ```
-
 ```python
 df.shape
 ```
     (11933, 23)
 
-## 5. Drop Nilai Null
+## 1.5 Drop Nilai Null
 ```python
 # Hitung jumlah nilai null per fitur
 null_counts = df.isnull().sum()
@@ -180,7 +175,6 @@ plt.title('Persentase Nilai Null per Fitur')
 plt.show()
 ```
 ![png](./notebook/model_training_files/model_training_15_0.png)
-
 ```python
 # lihat jumlah Null tiap fitur
 df.isnull().sum()
@@ -219,14 +213,12 @@ df.shape
 ```
     (4268, 23)
 
-## 6. Drop Fitur Identifikasi (SEQN)
-
+## 1.6 Drop Fitur Identifikasi (SEQN)
 ```python
 # drop fitur identifikasi
 df = df.drop(columns='SEQN', axis=1)
 ```
-## 7. Menetapkan Tipe Data Fitur
-
+## 1.7 Menetapkan Tipe Data Fitur
 ```python
 # lihat tipe data tiap fitur
 df.info()
@@ -338,7 +330,7 @@ df.info()
     dtypes: category(12), float64(2), int64(8)
     memory usage: 386.1 KB
     
-## 8. Mengubah Nama Fitur
+## 1.8 Mengubah Nama Fitur
 ```python
 # Mengubah nama fitur agar lebih komunikatif dengan fungsi rename()
 df = df.rename(columns={
@@ -364,7 +356,7 @@ df.head()
 ```
 ![df.head()](./notebook/model_training_files/1_df.head().png)
 
-# Exploratory Data Analysis
+# 2. Exploratory Data Analysis
 ```python
 # membuat list nama fitur numerik dan fitur katagori 
 # agar memudahkan visualisasi data
@@ -388,7 +380,7 @@ len(cat_cols)
 ```python
 all_cols = num_cols + cat_cols
 ```
-## 1. Statistik Deskriptif
+## 2.1 Statistik Deskriptif
 ```python
 stats = df[num_cols].describe().loc[['mean', '50%', 'min', 'max']]
 stats.T.plot(kind='bar', figsize=(12, 6))
@@ -401,8 +393,7 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_36_0.png)
     
-## 2. Fitur Numerik
-
+## 2.2 Fitur Numerik
 ```python
 fig, ax = plt.subplots(4, 3, figsize=(14, 10))
 ax = ax.flatten()
@@ -438,7 +429,7 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_39_0.png)
 
-## 3. Fitur Katagorikal
+## 2.3 Fitur Katagorikal
 ```python
 fig, ax = plt.subplots(4, 3, figsize=(14, 10))
 ax = ax.flatten()
@@ -459,7 +450,7 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_41_0.png)
     
-## 4. Korelasi Fitur
+## 2.4 Korelasi Fitur
 ```python
 plt.figure(figsize=(16, 9))
 sns.heatmap(df.corr(), annot=True, cmap='Blues')
@@ -469,7 +460,7 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_43_0.png)
     
-## 5. Data Target
+## 2.5 Data Target
 ```python
 fig, ax = plt.subplots(figsize=(12, 8))
 plt.suptitle("Distribusi Data Target dengan Countplot", fontsize=14, fontweight='bold')
@@ -483,8 +474,8 @@ ax.set_xticks(range(len(df['diabetes'].value_counts())))
 plt.show()
 ```
 ![png](notebook/model_training_files/model_training_45_0.png)
-# Data Preprocessing
-## 1. Drop Respon Tidak Pasti
+# 3. Data Preprocessing
+## 3.1 Drop Respon Tidak Pasti
 
 Drop respon yang tidak pasti
 - Kolom `alkohol` yang bernilai 99 artinya responden menjawab tidak tahu, 77 artinya reponden menolak menjawab
@@ -550,7 +541,7 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_52_0.png)
     
-## 2. Handling Outlier
+## 3.2 Handling Outlier
 ```python
 fig, ax = plt.subplots(4, 3, figsize=(14, 10))
 ax = ax.flatten()
@@ -570,12 +561,11 @@ plt.show()
     
 Outlier akan tetap dibiarkan untuk representasi data dengan nilai tinggi yang dapat meningkatkan risiko terjadinya diabetes.
 
-## 3. Rekayasa Fitur
+## 3.3 Rekayasa Fitur
 
-### 3.1 Memperbaiki Nilai pada Fitur Usia
+### 3.3.1 Memperbaiki Nilai pada Fitur Usia
 
 - Terdapat kolom unik yaitu kolom `usia` yang memiliki tipe data campuran (numerik untuk umur 0 sampai 79, dan katagori untuk nilai 80 ke atas) sehingga perlu perlakuan khusus dengan mengubah kolom `usia` menjadi katagori.
-
 ```python
 fig, ax = plt.subplots(figsize=(8, 6))
 plt.suptitle("Distribusi Fitur Kelompok Usia dengan Countplot", fontsize=14, fontweight='bold')
@@ -588,7 +578,6 @@ plt.show()
 ```python
 df['usia'] = df['usia'].replace(80, 85)
 ```
-
 ```python
 fig, ax = plt.subplots(figsize=(10, 8))
 plt.suptitle("Distribusi Fitur Usia dengan Histplot", fontsize=14, fontweight='bold')
@@ -599,10 +588,9 @@ ax.bar_label(ax.containers[0])
 plt.tight_layout()
 plt.show()
 ```
-
 ![png](notebook/model_training_files/model_training_60_0.png)
     
-### 3.2 Membuat Fitur Tekanan Darah
+### 3.3.2 Membuat Fitur Tekanan Darah
 
 **Mean Arterial Pressure**</br>
 MAP dapat dihitung menggunakan rumus berikut:</br>
@@ -614,12 +602,10 @@ rata2_diastolik = (df['diastolik1'] + df['diastolik2'] + df['diastolik3'])/3
 df['tekanan_darah'] = rata2_diastolik + (rata2_sistolik - rata2_diastolik)/3
 df['tekanan_darah'] = df['tekanan_darah'].round().astype('int64')
 ```
-
 ```python
 # drop kolom sistolik dan daistolik
 df = df.drop(columns=['sistolik1', 'sistolik2', 'sistolik3', 'diastolik1', 'diastolik2', 'diastolik3'])
 ```
-
 ```python
 df.shape
 ```
@@ -637,7 +623,7 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_67_0.png)
     
-### 3.3 Memperbaiki Urutan Katagori Fitur Alkohol
+### 3.3.3 Memperbaiki Urutan Katagori Fitur Alkohol
 ```python
 alkohol_mapping = {
     0: 0, 10: 1, 9: 2, 8: 3, 7: 4,
@@ -645,9 +631,9 @@ alkohol_mapping = {
 }
 df['alkohol'] = df['alkohol'].map(alkohol_mapping)
 ```
-## 4. Encoding
+## 3.4 Encoding
 
-### 4.1 Biner
+### 3.4.1 Biner
 ```python
 bin_cols = ['gender', 'riw_liver', 'riw_tiroid', 'riw_kanker', 'riw_kolesterol_tinggi', 'merokok100', 'diabetes']
 for col in bin_cols:
@@ -677,9 +663,8 @@ ax[len(num_cols)+1].set_axis_off()
 plt.show()
 ```
 ![png](notebook/model_training_files/model_training_73_0.png)
-    
+ 
 ---
-
 ```python
 plt.figure(figsize=(20, 8))
 # Hitung korelasi
@@ -691,12 +676,10 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_75_0.png)
     
-### 4.2 Nominal
-
+### 3.4.2 Nominal
 ```python
 df = pd.get_dummies(df, columns=['ras'], prefix='ras', drop_first=True)
 ```
-
 ```python
 df['diabetes'].value_counts()
 ```
@@ -706,24 +689,22 @@ df['diabetes'].value_counts()
     1     544
     Name: count, dtype: int64
 
-## 5. Splitting
+## 3.5 Splitting
 
 ```python
 X = df.drop(columns='diabetes', axis=1)
 y = df['diabetes']
 ```
-
 ```python
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3, random_state=42, stratify=y)
 ```
-
 ```python
 print(f"X_train: {X_train.shape}, X_test: {X_test.shape}, y_train: {y_train.shape}, y_test: {y_test.shape}")
 ```
 
     X_train: (2856, 20), X_test: (1224, 20), y_train: (2856,), y_test: (1224,)
     
-## 6. Normalization
+## 3.6 Normalization
 
 ```python
 # Normalization
@@ -737,10 +718,9 @@ X_test_scaled = scaler.transform(X_test)
 X_train = pd.DataFrame(X_train_scaled, columns=X_train.columns, index=X_train.index)
 X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns, index=X_test.index)
 ```
-## 7. Resampling
+## 3.7 Resampling
 
 Resampling dengan SMOTE-ENN
-
 ```python
 fig, ax = plt.subplots(figsize=(8, 8))
 # plt.suptitle("Pie Chart", fontsize=14, fontweight='bold')
@@ -775,22 +755,19 @@ plt.pie(x=y_train.value_counts(), labels=['Negatif', 'Positif'], autopct='%1.2f%
 # plt.tight_layout()
 plt.show()
 ```
-
 ![png](notebook/model_training_files/model_training_90_0.png)    
 
-# Modeling
+# 4. Modeling
 
-## 1. KNN
+## 4.1 KNN
 
 ```python
 model_knn = KNeighborsClassifier()
 model_knn.fit(X_train, y_train)
 ```
-
 ```python
 model_knn_pred = model_knn.predict(X_test)
 ```
-
 ```python
 print("Akurasi KNN: ", accuracy_score(y_test, model_knn_pred))
 ```
@@ -882,7 +859,7 @@ plt.show()
 
 ![png](notebook/model_training_files/model_training_106_0.png)
     
-## 2. XGBoost
+## 4.2 XGBoost
 
 ```python
 model_xgb = xgb.XGBClassifier(objective='binary:logistic',random_state=42)
@@ -983,18 +960,16 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_117_0.png)
 
-## 3. SVM
+## 4.3 SVM
 
 ```python
 from sklearn.svm import SVC
 model_svm = SVC(probability=True, random_state=42)
 model_svm.fit(X_train, y_train)
 ```
-
 ```python
 model_svm_pred = model_svm.predict(X_test)
 ```
-
 ```python
 print("Akurasi SVM: ", accuracy_score(y_test, model_svm_pred))
 ```
@@ -1090,7 +1065,7 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_129_0.png)
     
-## 4. Random Forest
+## 4.4 Random Forest
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
@@ -1100,11 +1075,9 @@ from sklearn.ensemble import RandomForestClassifier
 model_rf = RandomForestClassifier(random_state=42)
 model_rf.fit(X_train, y_train)
 ```
-
 ```python
 model_rf_pred = model_rf.predict(X_test)
 ```
-
 ```python
 print("Akurasi RF: ", accuracy_score(y_test, model_rf_pred))
 ```
@@ -1150,7 +1123,6 @@ tn_rf, fp_rf, fn_rf, tp_rf = confusion_matrix(y_test, model_rf_pred).ravel()
 specificity_rf = tn_rf / (tn_rf + fp_rf)
 sensitiviy_rf = tp_rf / (tp_rf + fn_rf)
 ```
-
 ```python
 print(f"True Negative (TN): {tn_rf}")
 print(f"False Positive (FP): {fp_rf}")
@@ -1204,7 +1176,7 @@ plt.show()
 
 ![png](notebook/model_training_files/model_training_142_0.png)
     
-## 5. Hyperparameter
+# 5. Hyperparameter Tuning
 
 ```python
 from sklearn.model_selection import StratifiedKFold
@@ -1212,7 +1184,7 @@ from sklearn.model_selection import StratifiedKFold
 stratified_cv = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
 from sklearn.model_selection import RandomizedSearchCV
 ```
-### 5.1 KNN
+## 5.1 KNN
 
 ```python
 hyp_knn_params = {
@@ -1222,7 +1194,6 @@ hyp_knn_params = {
     'p': [1, 2]  # untuk 'minkowski'
 }
 ```
-
 ```python
 hyp_knn = KNeighborsClassifier()
 clf_knn = GridSearchCV(
@@ -1353,7 +1324,7 @@ plt.ylabel("Features")
 plt.show()
 ```
 ![png](./notebook/model_training_files/model_training_162_0.png)
-### 5.2 XGBoost
+## 5.2 XGBoost
 
 ```python
 hyp_xgb_params = {
@@ -1502,7 +1473,7 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_179_0.png)
     
-### 5.3 SVM
+## 5.3 SVM
 ```python
 hyp_svm_params = [
     # Linear kernel: hanya C
@@ -1653,7 +1624,7 @@ plt.show()
 ```
 ![png](./notebook/model_training_files/model_training_194_0.png)
     
-### 5.4 Random Forest
+## 5.4 Random Forest
 
 ```python
 hyp_rf_params = {
@@ -1788,11 +1759,11 @@ plt.show()
 ```
 ![png](./notebook/model_training_files/model_training_209_0.png)
     
-## 6. Feature Importance
+# 6. Feature Importance
 ```python
 from eli5.sklearn import PermutationImportance
 ```
-### 6.1 KNN
+## 6.1 KNN
 ```python
 # Untuk model KNN
 perm_clf_knn = PermutationImportance(clf_knn, random_state=42).fit(X_test, y_test)
@@ -1817,7 +1788,7 @@ plt.title('Feature Importance (Random Forest - ELI5 Permutation)')
 plt.show()
 ```
 ![png](notebook/model_training_files/model_training_216_0.png)
-### 6.2 XGBoost
+## 6.2 XGBoost
 ```python
 # Untuk model SVM
 perm_clf_xgb = PermutationImportance(clf_xgb, random_state=42).fit(X_test, y_test)
@@ -1839,7 +1810,7 @@ plt.title('Feature Importance (Random Forest - ELI5 Permutation)')
 plt.show()
 ```
 ![png](notebook/model_training_files/model_training_219_0.png)
-### 6.3 SVM
+## 6.3 SVM
 
 ```python
 # Untuk model Random Forest
@@ -1863,7 +1834,7 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_222_0.png)
     
-### 6.4 Random Forest
+## 6.4 Random Forest
 ```python
 # Untuk model XGBoost (pastikan input-nya sudah sesuai)
 perm_clf_rf = PermutationImportance(clf_rf, random_state=42).fit(X_test, y_test)
@@ -1886,15 +1857,13 @@ plt.show()
 ```
 ![png](notebook/model_training_files/model_training_225_0.png)
     
-## 7. Export Model
-
-### 7.1 XGBoost
+# 7. Export Model
+## 7.1 XGBoost
 ```python
 with open('./pkl/clf_xgb.pkl', 'wb') as file:
     pickle.dump(clf_xgb, file)
 ```
-### 7.2 Random Forest
-
+## 7.2 Random Forest
 ```python
 with open('./pkl/clf_rf.pkl', 'wb') as file:
     pickle.dump(clf_rf, file)
