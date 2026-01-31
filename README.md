@@ -90,47 +90,6 @@ final_df.head()
 ## 4. Saring Fitur yang Akan Digunakan
 Terdapat 5 kelompok data yaitu Demographics Data, Examination Data, Laboratory Data, Questionnaire Data. Setiap kelompok data memiliki berbagai jenis dataset yang berhubungan berdasarkan kelompok terkait, kecuali Demographics Data yang hanya memiliki satu dataset. Dataset-dataset yang berada dalam kelompok tersebut akan dipilih, di dalamnya akan diambil beberapa kolom untuk membentuk dataset baru. Sumber data bisa diakses [disini](https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?Cycle=2021-2023). Untuk filter/pemilihan kolom dalam setiap datasetnya dapat dilihat sebagai berikut.
 
-Demographics Data:
-- DEMO_L: Demographic Variables and Sample Weights
-    - RIAGENDR - Gender
-    - RIDAGEYR - Age in years at screening
-    - RIDRETH3 - Race/Hispanic origin w/ NH Asian</br>
-    
-Examination Data:
-- BPXO_L: Blood Pressure - Oscillometric Measurements
-    - BPXOSY1 - Systolic - 1st oscillometric reading
-    - BPXODI1 - Diastolic - 1st oscillometric reading
-    - BPXOSY2 - Systolic - 2nd oscillometric reading
-    - BPXODI2 - Diastolic - 2nd oscillometric reading
-    - BPXOSY3 - Systolic - 3rd oscillometric reading
-    - BPXODI3 - Diastolic - 3rd oscillometric reading
-- BMX_L: Body Measures
-    - BMXBMI - Body Mass Index (kg/m**2)</br>
-    
-Laboratory Data:
-- GHB_L: Glycohemoglobin
-    - LBXGH - Glycohemoglobin (%)
-- TCHOL_L: Cholesterol - Total
-    - LBXTC - Total Cholesterol (mg/dL)</br>
-    
-Questionnaire Data:
-- ALQ_L: Alcohol Use
-    - ALQ121 - 'Past 12 mos how often drink alc bev' (alkohol)
-- BPQ_L: Blood Pressure & Cholesterol
-    - BPQ080 - Doctor told you - high cholesterol level
-- DIQ_L: Diabetes
-    - DIQ010 - 'Doctor told you have diabetes' (diabetes)
-- DPQ_L: Mental Health - Depression Screener
-    - DPQ020 - Feeling down, depressed, or hopeless
-    - DPQ030 - Trouble sleeping or sleeping too much
-    - DPQ050 - Poor appetite or overeating
-- MCQ_L: Medical Conditions
-    - MCQ160l - Ever told you had any liver condition
-    - MCQ160m - Ever told you had thyroid problem
-    - MCQ220 - Ever told you had cancer or malignancy
-- SMQ_L: Smoking - Cigarette Use
-    - SMQ020 - 'Smoked at least 100 cigarettes in life' (merokok_100)
----
 Kategori Faktor Risiko:
 - Demografi:
     - Umur
@@ -345,8 +304,6 @@ df['MCQ220'] = df['MCQ220'].astype('int64').astype('category')
 # Smoking - Cigarette Use
 df['SMQ020'] = df['SMQ020'].astype('int64').astype('category')
 ```
-
-
 ```python
 # lihat tipe data tiap fitur setelah konversi
 df.info()
@@ -382,7 +339,6 @@ df.info()
     memory usage: 386.1 KB
     
 ## 8. Mengubah Nama Fitur
-
 ```python
 # Mengubah nama fitur agar lebih komunikatif dengan fungsi rename()
 df = df.rename(columns={
@@ -403,23 +359,19 @@ df = df.rename(columns={
     'DIQ010':'diabetes'
 })
 ```
-
 ```python
 df.head()
 ```
 ![df.head()](./notebook/model_training_files/1_df.head().png)
 
 # Exploratory Data Analysis
-
 ```python
 # membuat list nama fitur numerik dan fitur katagori 
 # agar memudahkan visualisasi data
 ```
-
 ```python
 num_cols = ['usia', 'sistolik1', 'diastolik1', 'sistolik2', 'diastolik2', 'sistolik3', 'diastolik3', 'BMI', 'HbA1c', 'kadar_kolesterol']
 ```
-
 ```python
 len(num_cols)
 ```
@@ -428,8 +380,6 @@ len(num_cols)
 ```python
 cat_cols = ['gender', 'ras', 'alkohol','sedih-depresi-putus_asa','gangguan_tidur', 'gangguan_makan', 'riw_liver', 'riw_tiroid', 'riw_kanker','riw_kolesterol_tinggi', 'merokok100']
 ```
-
-
 ```python
 len(cat_cols)
 ```
@@ -438,9 +388,7 @@ len(cat_cols)
 ```python
 all_cols = num_cols + cat_cols
 ```
-
 ## 1. Statistik Deskriptif
-
 ```python
 stats = df[num_cols].describe().loc[['mean', '50%', 'min', 'max']]
 stats.T.plot(kind='bar', figsize=(12, 6))
@@ -451,7 +399,6 @@ plt.xticks(rotation=70)
 plt.legend(loc='upper left')
 plt.show()
 ```
-    
 ![png](notebook/model_training_files/model_training_36_0.png)
     
 ## 2. Fitur Numerik
@@ -492,7 +439,6 @@ plt.show()
 ![png](notebook/model_training_files/model_training_39_0.png)
 
 ## 3. Fitur Katagorikal
-
 ```python
 fig, ax = plt.subplots(4, 3, figsize=(14, 10))
 ax = ax.flatten()
@@ -524,7 +470,6 @@ plt.show()
 ![png](notebook/model_training_files/model_training_43_0.png)
     
 ## 5. Data Target
-
 ```python
 fig, ax = plt.subplots(figsize=(12, 8))
 plt.suptitle("Distribusi Data Target dengan Countplot", fontsize=14, fontweight='bold')
@@ -538,8 +483,6 @@ ax.set_xticks(range(len(df['diabetes'].value_counts())))
 plt.show()
 ```
 ![png](notebook/model_training_files/model_training_45_0.png)
-
-
 # Data Preprocessing
 ## 1. Drop Respon Tidak Pasti
 
@@ -608,7 +551,6 @@ plt.show()
 ![png](notebook/model_training_files/model_training_52_0.png)
     
 ## 2. Handling Outlier
-
 ```python
 fig, ax = plt.subplots(4, 3, figsize=(14, 10))
 ax = ax.flatten()
@@ -703,11 +645,9 @@ alkohol_mapping = {
 }
 df['alkohol'] = df['alkohol'].map(alkohol_mapping)
 ```
-
 ## 4. Encoding
 
 ### 4.1 Biner
-
 ```python
 bin_cols = ['gender', 'riw_liver', 'riw_tiroid', 'riw_kanker', 'riw_kolesterol_tinggi', 'merokok100', 'diabetes']
 for col in bin_cols:
